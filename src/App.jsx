@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, useParams, useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useParams, useNavigate, Link } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import JobsBoard from "./components/JobsBoard";
 import CandidatesList from "./components/CandidatesList";
@@ -71,7 +71,7 @@ function App() {
           <header className="bg-gray-800 border-b border-gray-700">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between items-center py-4">
-                <h1 className="text-2xl font-bold text-gray-100">TalentFlow</h1>
+                <Link to="/jobs" className="text-2xl font-bold text-gray-100 hover:text-blue-300 transition-colors">TalentFlow</Link>
                 <Navigation />
               </div>
             </div>
