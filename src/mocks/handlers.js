@@ -26,7 +26,9 @@ const shouldSimulateError = () => Math.random() < 0.08; // 8% error rate
 const getLatency = () => Math.floor(Math.random() * 1000) + 200;
 
 // Ensure DB is ready for handlers
-await initializeDB();
+(async () => {
+  await initializeDB();
+})();
 
 export const handlers = [
   // Jobs endpoints
