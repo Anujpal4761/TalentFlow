@@ -77,7 +77,7 @@ const initializeMockData = () => {
     "Mark", "Dorothy", "Donald", "Helen", "Steven", "Sharon", "Paul", "Michelle", "Andrew", "Laura",
     "Joshua", "Sarah", "Kenneth", "Kimberly", "Kevin", "Deborah", "Brian", "Donna", "George", "Carol"
   ];
-  
+
   const lastNames = [
     "Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez",
     "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas", "Taylor", "Moore", "Jackson", "Martin",
@@ -86,7 +86,7 @@ const initializeMockData = () => {
   ];
 
   const stages = ["applied", "screen", "tech", "offer", "hired", "rejected"];
-  
+
   mockCandidates = [];
   for (let i = 1; i <= 1000; i++) {
     const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
@@ -198,16 +198,40 @@ const initializeMockData = () => {
   };
 };
 
-// NOTE: We now rely on MSW handlers to simulate the REST API and write-through to IndexedDB.
-// This client simply performs fetch requests to /api endpoints and returns JSON.
+// Fallback to mock data when MSW fails
+const fallbackToMockData = async (endpoint, options) => {
+  console.log('Using fallback mock data for:', endpoint);
+
+  // Ensure mock data is initialized
+  initializeMockDataOnce();
+
+  const url = new URL(`http://localhost${endpoint}`);
+
+  if (endpoint.startsWith('/api/jobs')) {
+    return handleJobsAPI(endpoint, options);
+  } else if (endpoint.startsWith('/api/candidates')) {
+    return handleCandidatesAPI(endpoint, options);
+  } else if (endpoint.startsWith('/api/assessments')) {
+    return handleAssessmentsAPI(endpoint, options);
+  }
+
+  throw new Error('No fallback handler for this endpoint');
+};
+
+// Production-safe API call that uses mock data directly in production
 const apiCall = async (endpoint, options = {}) => {
-  console.log('Making API call to:', endpoint);
+  // In production, always use mock data directly
+  if (import.meta.env.PROD || !import.meta.env.DEV) {
+    console.log('Production mode: Using mock data directly for:', endpoint);
+    return fallbackToMockData(endpoint, options);
+  }
+
+  // In development, try MSW first, fallback to mock data if it fails
+  console.log('Development mode: Making API call to:', endpoint);
   const res = await fetch(endpoint, {
     headers: { 'Content-Type': 'application/json' },
     ...options,
   });
-  console.log('Response status:', res.status);
-  console.log('Response headers:', Object.fromEntries(res.headers.entries()));
 
   if (!res.ok) {
     let message = `Request failed with ${res.status}`;
@@ -215,14 +239,14 @@ const apiCall = async (endpoint, options = {}) => {
       const data = await res.json();
       if (data?.error) message = data.error;
     } catch (parseError) {
-      // If we can't parse JSON, it might be HTML (MSW not working)
       if (parseError.message.includes('Unexpected token') || parseError.message.includes('<!DOCTYPE')) {
-        message = 'MSW (Mock Service Worker) is not intercepting requests. The API returned HTML instead of JSON.';
+        message = 'MSW not working, falling back to mock data';
+        return fallbackToMockData(endpoint, options);
       }
     }
     throw new Error(message);
   }
-  // Some endpoints (e.g., DELETE with no body) may return empty
+
   const text = await res.text();
   return text ? JSON.parse(text) : null;
 };
