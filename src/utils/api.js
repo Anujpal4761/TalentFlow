@@ -222,10 +222,10 @@ const fallbackToMockData = async (endpoint, options) => {
 // Production-safe API call that uses mock data directly in production
 const apiCall = async (endpoint, options = {}) => {
   // In production, always use mock data directly
-  if (import.meta.env.PROD || !import.meta.env.DEV) {
-    console.log('Production mode: Using mock data directly for:', endpoint);
-    return fallbackToMockData(endpoint, options);
-  }
+  // if (import.meta.env.PROD || !import.meta.env.DEV) {
+  //   console.log('Production mode: Using mock data directly for:', endpoint);
+  //   return fallbackToMockData(endpoint, options);
+  // }
 
   // In development, try MSW first, fallback to mock data if it fails
   console.log('Development mode: Making API call to:', endpoint);
