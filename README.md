@@ -2,83 +2,90 @@
 
 A comprehensive React application for HR teams to manage jobs, candidates, and assessments with full API simulation and advanced features.
 
+---
+
 ## Features Implemented
 
 ### ✅ Jobs Management
-- **Jobs Board**: List with server-like pagination & filtering (title, status, tags)
-- **Create/Edit Jobs**: Modal-based job creation with validation (title required, unique slug)
-- **Archive/Unarchive**: Toggle job status with visual indicators
-- **Drag-and-Drop Reordering**: Optimistic updates with rollback on failure
-- **Deep Linking**: `/jobs/:jobId` routes for individual job details
-- **Job Details Page**: Comprehensive job information with quick actions
+- **Jobs Board**: List with server-like pagination & filtering (title, status, tags)  
+- **Create/Edit Jobs**: Modal-based job creation with validation (title required, unique slug)  
+- **Archive/Unarchive**: Toggle job status with visual indicators  
+- **Drag-and-Drop Reordering**: Optimistic updates with rollback on failure  
+- **Deep Linking**: `/jobs/:jobId` routes for individual job details  
+- **Job Details Page**: Comprehensive job information with quick actions  
 
 ### ✅ Candidates Management
-- **Virtualized List**: 1000+ candidates with client-side search (name/email) and server-side filtering (stage)
-- **Candidate Profile**: `/candidates/:id` routes showing timeline of status changes
-- **Kanban Board**: Drag-and-drop candidate stage management
-- **@Mentions in Notes**: Smart mention system with user suggestions
-- **Timeline Tracking**: Complete audit trail of candidate interactions
+- **Virtualized List**: 1000+ candidates with client-side search (name/email) and server-side filtering (stage)  
+- **Candidate Profile**: `/candidates/:id` routes showing timeline of status changes  
+- **Kanban Board**: Drag-and-drop candidate stage management  
+- **@Mentions in Notes**: Smart mention system with user suggestions  
+- **Timeline Tracking**: Complete audit trail of candidate interactions  
 
 ### ✅ Assessments
-- **Assessment Builder**: Per-job assessment creation with sections and questions
-- **Question Types**: Single-choice, multi-choice, short text, long text, numeric with range, file upload stub
-- **Live Preview**: Real-time assessment preview as fillable form
-- **Conditional Questions**: Show/hide questions based on previous answers
-- **Form Validation**: Required fields, numeric ranges, max length validation
-- **Assessment Submission**: Complete form handling with validation
+- **Assessment Builder**: Per-job assessment creation with sections and questions  
+- **Question Types**: Single-choice, multi-choice, short text, long text, numeric with range, file upload stub  
+- **Live Preview**: Real-time assessment preview as fillable form  
+- **Conditional Questions**: Show/hide questions based on previous answers  
+- **Form Validation**: Required fields, numeric ranges, max length validation  
+- **Assessment Submission**: Complete form handling with validation  
 
 ### ✅ API Simulation
-- **MSW Integration**: Mock Service Worker for realistic API simulation
-- **REST Endpoints**: All required endpoints implemented:
-  - `GET /jobs?search=&status=&page=&pageSize=&sort=`
-  - `POST /jobs`, `PATCH /jobs/:id`, `PATCH /jobs/:id/reorder`
-  - `GET /candidates?search=&stage=&page=`
-  - `POST /candidates`, `PATCH /candidates/:id`
-  - `GET /candidates/:id/timeline`
-  - `GET /assessments/:jobId`, `PUT /assessments/:jobId`
-  - `POST /assessments/:jobId/submit`
-- **Artificial Latency**: 200-1200ms delays for realistic feel
-- **Error Simulation**: 5-10% error rate on write endpoints for testing
+- **MSW Integration**: Mock Service Worker for realistic API simulation  
+- **REST Endpoints**: All required endpoints implemented:  
+  - `GET /jobs?search=&status=&page=&pageSize=&sort=`  
+  - `POST /jobs`, `PATCH /jobs/:id`, `PATCH /jobs/:id/reorder`  
+  - `GET /candidates?search=&stage=&page=`  
+  - `POST /candidates`, `PATCH /candidates/:id`  
+  - `GET /candidates/:id/timeline`  
+  - `GET /assessments/:jobId`, `PUT /assessments/:jobId`  
+  - `POST /assessments/:jobId/submit`  
+- **Artificial Latency**: 200–1200ms delays for realistic feel  
+- **Error Simulation**: 5–10% error rate on write endpoints for testing  
 
 ### ✅ Data & Persistence
-- **IndexedDB Storage**: Local persistence with write-through to IndexedDB
-- **Data Seeding**: 25 jobs, 1000+ candidates, sample assessments
-- **State Restoration**: App restores state from IndexedDB on refresh
-- **Optimistic Updates**: Immediate UI updates with rollback on failure
+- **IndexedDB Storage**: Local persistence with write-through to IndexedDB  
+- **Data Seeding**: 25 jobs, 1000+ candidates, sample assessments  
+- **State Restoration**: App restores state from IndexedDB on refresh  
+- **Optimistic Updates**: Immediate UI updates with rollback on failure  
 
 ### ✅ Advanced Features
-- **React Router**: Full routing with deep linking support
-- **React Query**: Advanced caching and state management
-- **Drag-and-Drop**: @dnd-kit for smooth interactions
-- **Responsive Design**: Mobile-friendly Tailwind CSS styling
-- **Error Handling**: Comprehensive error states and user feedback
-- **Development Tools**: Hot reload indicators, error overlays, and debugging utilities
+- **React Router**: Full routing with deep linking support  
+- **React Query**: Advanced caching and state management  
+- **Drag-and-Drop**: @dnd-kit for smooth interactions  
+- **Responsive Design**: Mobile-friendly Tailwind CSS styling  
+- **Error Handling**: Comprehensive error states and user feedback  
+- **Development Tools**: Hot reload indicators, error overlays, and debugging utilities  
+
+---
 
 ## Technical Stack
+- **React 18** with hooks and functional components  
+- **React Router v7** for client-side routing  
+- **TanStack Query** for server state management  
+- **MSW** for API simulation  
+- **IndexedDB** for local persistence  
+- **Tailwind CSS** for styling  
+- **@dnd-kit** for drag-and-drop functionality  
 
-- **React 18** with hooks and functional components
-- **React Router v7** for client-side routing
-- **TanStack Query** for server state management
-- **MSW** for API simulation
-- **IndexedDB** for local persistence
-- **Tailwind CSS** for styling
-- **@dnd-kit** for drag-and-drop functionality
+---
+
 ## Development Utilities
-
 The application includes several development utilities located in the `__create` directories:
 
 ### Root Level `__create/`
-- **Server Configuration**: Hono server setup utilities
-- **Authentication**: Auth adapter implementations and utilities
-- **Routing**: File-based routing configuration helpers
+- **Server Configuration**: Hono server setup utilities  
+- **Authentication**: Auth adapter implementations and utilities  
+- **Routing**: File-based routing configuration helpers  
 
 ### Source Level `src/__create/`
-- **PolymorphicComponent**: Flexible component wrapper for any HTML element
-- **HotReload**: Hot reload indicator component for development
-- **Auth Context**: React authentication context provider
-- **Error Overlay**: Development error display utilities
-- **Stripe Integration**: Payment processing utilities
-- **Dev Tools**: Development server monitoring and debugging tools
+- **PolymorphicComponent**: Flexible component wrapper for any HTML element  
+- **HotReload**: Hot reload indicator component for development  
+- **Auth Context**: React authentication context provider  
+- **Error Overlay**: Development error display utilities  
+- **Stripe Integration**: Payment processing utilities  
+- **Dev Tools**: Development server monitoring and debugging tools  
+
+---
 
 These utilities enhance the development experience and provide reusable components for common patterns.
 
@@ -232,3 +239,4 @@ This implementation fully satisfies all the requirements specified in the origin
 #   T a l e n t F l o w 
  
  
+
