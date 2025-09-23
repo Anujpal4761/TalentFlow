@@ -203,7 +203,8 @@ const fallbackToMockData = async (endpoint, options) => {
   console.log('Using fallback mock data for:', endpoint);
 
   // Ensure mock data is initialized
-  initializeMockDataOnce();
+  // initializeMockDataOnce();
+  initializeMockData();
 
   const url = new URL(`http://localhost${endpoint}`);
 
