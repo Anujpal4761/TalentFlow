@@ -5,7 +5,7 @@ import './index.css';
 
 async function start() {
   // Only start MSW in development mode
-  if (import.meta.env.DEV && import.meta.env.MODE === 'development') {
+  // if (import.meta.env.DEV && import.meta.env.MODE === 'development') {
     console.log('Starting MSW...');
     try {
       const { worker } = await import('./mocks/browser');
@@ -29,9 +29,9 @@ async function start() {
     } catch (error) {
       console.error('MSW failed to start:', error);
     }
-  } else {
-    console.log('Running in production mode - MSW disabled');
-  }
+  // } else {
+  //   console.log('Running in production mode - MSW disabled');
+  // }
 
   ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
