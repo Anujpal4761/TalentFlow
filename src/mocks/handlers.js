@@ -20,7 +20,10 @@ import {
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 // Simulate error rate (5-10% on write endpoints)
-const shouldSimulateError = () => Math.random() < 0.08; // 8% error rate
+const shouldSimulateError = () => {
+  const errorRate = Math.random() * 0.05 + 0.05; // Random between 5-10%
+  return Math.random() < errorRate;
+};
 
 // Simulate latency (200-1200ms)
 const getLatency = () => Math.floor(Math.random() * 1000) + 200;
@@ -99,14 +102,6 @@ export const handlers = [
 
   http.post('/api/jobs', async ({ request }) => {
     await delay(getLatency());
-    // 5-10 % error
-    const r = Math.random();
-    if (r >= 0.05 && r <= 0.10) {
-      return HttpResponse.json(
-        { error: 'Internal server error' },
-        { status: 500 }
-      );
-    }
     
     if (shouldSimulateError()) {
       return HttpResponse.json(
