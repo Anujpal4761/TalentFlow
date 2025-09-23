@@ -99,6 +99,14 @@ export const handlers = [
 
   http.post('/api/jobs', async ({ request }) => {
     await delay(getLatency());
+    // 5-10 % error
+    const r = Math.random();
+    if (r >= 0.05 && r <= 0.10) {
+      return HttpResponse.json(
+        { error: 'Internal server error' },
+        { status: 500 }
+      );
+    }
     
     if (shouldSimulateError()) {
       return HttpResponse.json(
