@@ -89,8 +89,7 @@ export default function JobModal({ job, onSave, onClose, isLoading }) {
     }
 
     const jobData = {
-      ...job,
-      id: job?.id || `job-${Date.now()}`,
+      ...(job && { id: job.id }),
       title: formData.title.trim(),
       slug: formData.slug.trim(),
       status: formData.status,
